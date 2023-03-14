@@ -23,8 +23,7 @@ for file in files:
         for d in drop:
             data = data.replace(f'DROP {d} ',f'DROP {d} IF EXISTS ')
         data = data.splitlines(True)
-        data = data[2:]
-        data = filter(lambda line: ' Script Date: ' not in line, data)
+        data = filter(lambda line: ' Script Date: ' not in line, data[2:])
     with open(os.path.join(folder,file), 'w') as fout:
         fout.writelines(data)
     for r in replace:
