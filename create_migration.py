@@ -23,8 +23,10 @@ for file in files:
         for d in drop:
             data = data.replace(f'DROP {d} ',f'DROP {d} IF EXISTS ')
         data = data.splitlines(True)
+        data = data[2:]
+        data = filter(lambda line: ' Script Date: ' not in line, data)
     with open(os.path.join(folder,file), 'w') as fout:
-        fout.writelines(data[3:])
+        fout.writelines(data)
     for r in replace:
         if file.endswith(f'.{r}.sql'):
             migration = file.replace('dbo.','R__')
